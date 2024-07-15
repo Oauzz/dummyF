@@ -16,8 +16,11 @@ def random_date():
 def random_boolean():
     return random.choice([True, False])
 
-def generate_random_data(column):
+def generate_random_data(column, foreign_key_data=None):
     col_type = column["type"]
+    col_name = column["name"].strip('"')
+    if foreign_key_data and col_name in foreign_key_data:
+        return random.choice(foreign_key_data[col_name])
     if col_type == "character" or col_type.startswith("character("):
         length = 8 if col_type == "character" else int(col_type.split('(')[1].split(')')[0])
         return random_string(length)
@@ -56,11 +59,7 @@ def generate_csv_for_table(table_name, schema, num_rows=10, foreign_key_data=Non
         for _ in range(num_rows):
             row = []
             for col in columns:
-                col_name = col["name"].strip('"')
-                if foreign_key_data and col_name in foreign_key_data:
-                    row.append(random.choice(foreign_key_data[col_name]))
-                else:
-                    row.append(generate_random_data(col))
+                row.append(generate_random_data(col, foreign_key_data))
             writer.writerow(row)
 
     print(f"Generated {csv_file} with {num_rows} rows.")
