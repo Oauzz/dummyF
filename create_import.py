@@ -38,6 +38,7 @@ def import_schema(host, port, user, password, dbname, schema_file):
     print(f"Schema imported from {schema_file} into database {dbname} successfully.")
 
 if __name__ == "__main__":
+    
     # Database configuration
     host = '127.0.0.1'
     port = 5432

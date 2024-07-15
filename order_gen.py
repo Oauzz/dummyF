@@ -57,5 +57,5 @@ def run(schema_file):
         logging.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    schema_file = "parsed_schema.json"  # replace with your schema file path
+    schema_file = "parsed_schema.json"  
     run(schema_file)
